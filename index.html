@@ -437,8 +437,8 @@ try{
    1. DATOS DEL TORNEO
    ============================================================ */
 const DIAS = 2, HOYOS = 18, NJUG = 3;
-const VERSION = 9;   // sube al cambiar datos base: dispara migrar()
-const ACTUALIZADA='v9 · 12 sep 2026 · 19:13';   // lo sella el script de despliegue en cada publicación
+const VERSION = 10;   // sube al cambiar datos base: dispara migrar()
+const ACTUALIZADA='v10 · 12 sep 2026 · 19:28';   // lo sella el script de despliegue en cada publicación
 
 /* --- Los 3 jugadores --- */
 /* Índices de handicap del torneo (ajuste vs promedio del grupo tras 2 rondas,
@@ -753,22 +753,29 @@ function fijarExtra(d,jid,h,bits,tRemoto){
    la sincronizacion, pero el telefono que la RECIBE no vuelve a sumar: el
    score que le llega ya trae el castigo. Asi dos telefonos marcando el
    mismo OB tampoco lo cuentan doble. */
-const PENALES = [ {bit:32, golpes:2, et:'⛔ OB'}, {bit:64, golpes:1, et:'💧 hazard'} ];
-function togglePenal(jid,bit,golpes){
+/* Cada castigo es un CONTADOR de dos bits, porque en un mismo hoyo se puede
+   pegar mas de una vez fuera o al agua: OB en los bits 5-6 y hazard en los
+   7-8 (0 a 3 cada uno), y el bit 9 recuerda si fue un castigo el que abrio
+   el hoyo. Cada toque suma uno; pasado el tope vuelve a cero y devuelve
+   todos los golpes. */
+const PENALES = [ {desp:5, golpes:2, et:'⛔ OB'}, {desp:7, golpes:1, et:'💧 hazard'} ];
+const TOPE_PENAL = 3;
+const MASCARA_PENAL = 480;                      // los cuatro bits de los dos contadores
+const cuentaPenal=(x,desp)=>(x>>desp)&3;
+function ciclaPenal(jid,desp,golpes){
   const d=S.diaActivo, h=S.hoyoActivo;
   if(!puedeEditar(d)) return;
-  const x=extraDe(d,jid,h), prendido=!!(x&bit), g=scoreDe(d,jid,h);
-  let nx=x^bit;
-  if(prendido){
-    const base=(g===null)?S.campos[d].par[h]:g;
-    /* si el castigo fue lo que abrio el hoyo (bit 128) y ya no queda ninguno,
-       el hoyo vuelve a quedar VACIO: nada de pares fantasma por un dedazo */
-    if(!(nx&96) && (x&128)){ fijarScore(d,jid,h,null); nx&=~128; }
-    else fijarScore(d,jid,h, Math.max(1,base-golpes));
+  const x=extraDe(d,jid,h), g=scoreDe(d,jid,h);
+  const n=cuentaPenal(x,desp), n2=(n+1)%(TOPE_PENAL+1);
+  const dif=(n2-n)*golpes;                      // golpes que entran (o salen, si dio la vuelta)
+  let nx=(x & ~(3<<desp)) | (n2<<desp);
+  if(g===null){                                 // hoyo vacio: el castigo lo abre en par + lo suyo
+    nx|=512;
+    fijarScore(d,jid,h, Math.min(15, S.campos[d].par[h]+dif));
+  }else if(!(nx&MASCARA_PENAL) && (x&512)){     // se fue el ultimo castigo y el hoyo lo abrio el:
+    fijarScore(d,jid,h,null); nx&=~512;         // vuelve a quedar VACIO, sin pares fantasma
   }else{
-    const vacio=(g===null);
-    if(vacio) nx|=128;
-    fijarScore(d,jid,h, Math.min(15,(vacio?S.campos[d].par[h]:g)+golpes));
+    fijarScore(d,jid,h, Math.max(1, Math.min(15, g+dif)));
   }
   fijarExtra(d,jid,h,nx);
   render();
@@ -791,7 +798,7 @@ function cicloOyes(jid){
   else fila.push(jid);
   g.forEach(o=>{
     const pos=fila.indexOf(o)+1, x=extraDe(d,o,h);
-    const nuevo=(x&1)|(x&224)|(pos===1?2:0)|(pos<<2);   // &224 conserva OB, hazard y su bandera
+    const nuevo=(x&1)|(x&992)|(pos===1?2:0)|(pos<<2);   // &992 conserva los contadores de castigos y su bandera
     if(nuevo!==x) fijarExtra(d,o,h,nuevo);
   });
   render();
@@ -1013,8 +1020,9 @@ function vistaHoy(){
     const chips=`<button class="xtra ${x&1?'on':''}"${sandyOk&&editable?'':' disabled'} onclick="toggleExtra('${jid}',1)">🏖️ sandy</button>`
       +(c.par[h]===3?(()=>{ const pos=ordenOyes(d,jid,h);
           return `<button class="xtra ${pos===1?'on':''}"${editable?'':' disabled'} onclick="cicloOyes('${jid}')">🎯 ${pos?pos+'º':'oyes'}</button>`; })():'');
-    const penales=PENALES.map(p=>`<button class="xtra pen ${x&p.bit?'on':''}"${editable?'':' disabled'}
-      onclick="togglePenal('${jid}',${p.bit},${p.golpes})">${p.et} +${p.golpes}</button>`).join('');
+    const penales=PENALES.map(p=>{ const n=cuentaPenal(x,p.desp);
+      return `<button class="xtra pen ${n?'on':''}"${editable?'':' disabled'}
+      onclick="ciclaPenal('${jid}',${p.desp},${p.golpes})">${p.et} ${n?'×'+n:'+'+p.golpes}</button>`; }).join('');
     const xtras=`<div class="xtras">${MUESTRA_DINERO?chips:''}${penales}</div>`;
     html+=`<div class="jug-fila">${marcaVentaja(gp)}
       <div class="jug-id">
