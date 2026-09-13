@@ -79,23 +79,27 @@ h2.sec:first-child{margin-top:2px}
 .hoyo-meta{font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:var(--tinta-suave);
   margin-top:4px;text-transform:uppercase}
 
-.jug-fila{background:var(--tarjeta);color:var(--tinta);border-radius:var(--r);padding:11px 12px;
-  margin-bottom:8px;display:flex;align-items:center;gap:11px}
+.jug-fila{background:var(--tarjeta);color:var(--tinta);border-radius:var(--r);padding:9px 11px;
+  margin-bottom:7px;display:flex;flex-wrap:wrap;align-items:center;gap:9px}
 .jug-id{flex:1;min-width:0}
 .jug-nom{font-weight:700;font-size:17.5px;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .jug-sub{font-family:var(--mono);font-size:12px;color:var(--tinta-suave);margin-top:2px;letter-spacing:.02em;white-space:nowrap}
-.golpe{display:flex;align-items:center;gap:8px;flex:none}
-.bt{width:46px;height:46px;border-radius:8px;background:#E5DDC9;color:var(--tinta);font-size:23px;
+.golpe{display:flex;align-items:center;gap:5px;flex:none}
+.bt{width:44px;height:44px;border-radius:8px;background:#E5DDC9;color:var(--tinta);font-size:23px;
   font-weight:700;display:grid;place-items:center}
 .bt:active{background:#D6CBB2}
-.marcador{min-width:58px;height:50px;display:grid;place-items:center;font-family:var(--mono);font-size:28px;font-weight:700}
+.marcador{min-width:50px;height:50px;display:grid;place-items:center;font-family:var(--mono);font-size:28px;font-weight:700}
 .marcador.vacio{color:#B9AF97;font-size:21px}
-.pts{font-family:var(--mono);font-size:13px;font-weight:700;min-width:30px;text-align:right;color:var(--tinta-suave);flex:none}
-.xtras{display:flex;gap:5px;margin-top:2px;min-height:21px;align-items:center}
+.pts{font-family:var(--mono);font-size:13px;font-weight:700;min-width:26px;text-align:right;color:var(--tinta-suave);flex:none}
+/* renglon propio: en la columna del nombre los chips se partian en tres */
+.xtras{display:flex;flex-wrap:wrap;gap:6px;flex-basis:100%;align-items:center;margin-top:1px}
 /* los puntos rojos de la ventaja, junto al nombre: uno por golpe recibido */
 .gp-pts{color:var(--bandera);font-size:30px;line-height:0;letter-spacing:-3px;
   vertical-align:-4px;margin-left:3px}
-.xtra{font-family:var(--mono);font-size:11px;letter-spacing:.02em;padding:2px 7px;border-radius:99px;
+.xtra{font-family:var(--mono);font-size:11px;letter-spacing:.02em;padding:0 7px;border-radius:99px;
+  /* el emoji trae metricas de su propia fuente y estiraba la fila 30px: caja fija */
+  line-height:1;height:21px;display:inline-flex;align-items:center;box-sizing:border-box;
+  white-space:nowrap;flex:none;overflow:hidden;
   border:1px solid var(--tarjeta-linea);color:var(--tinta-suave);background:transparent}
 .xtra.on{background:var(--laton);border-color:var(--laton);color:var(--verde-hondo);font-weight:700}
 .xtra.pen.on{background:var(--bandera);border-color:var(--bandera);color:#fff;font-weight:700}
@@ -118,7 +122,7 @@ sup.xmk.seg{color:var(--tinta-suave);font-weight:400}
 .scroll-x{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--r)}
 table.card{border-collapse:collapse;background:var(--tarjeta);color:var(--tinta);width:100%;
   font-family:var(--mono);font-size:14px}
-table.card th,table.card td{border:1px solid var(--tarjeta-linea);padding:6px 5px;text-align:center;min-width:33px;position:relative}
+table.card th,table.card td{border:1px solid var(--tarjeta-linea);padding:5px 4px;text-align:center;min-width:33px;position:relative}
 /* VENTAJA: triangulo rojo en la esquina superior derecha de la celda; el
    tamano dice cuantos golpes recibe ahi (uno, dos o tres) */
 .tri{position:absolute;top:0;right:0;width:0;height:0;pointer-events:none;
@@ -131,8 +135,8 @@ table.card th,table.card td{border:1px solid var(--tarjeta-linea);padding:6px 5p
 .jug-fila .tri.t2{border-top-width:42px;border-left-width:42px}
 .jug-fila .tri.t3{border-top-width:52px;border-left-width:52px}
 .ch{font-family:var(--mono);font-size:11.5px;color:var(--cal);margin-left:5px;font-weight:400}
-table.card th.nom,table.card td.nom{text-align:left;min-width:100px;position:sticky;left:0;background:var(--tarjeta);
-  z-index:2;font-family:var(--ui);font-weight:700;font-size:14.5px;border-right:2px solid var(--verde)}
+table.card th.nom,table.card td.nom{text-align:left;min-width:72px;white-space:nowrap;position:sticky;left:0;background:var(--tarjeta);
+  z-index:2;font-family:var(--ui);font-weight:700;font-size:13px;border-right:2px solid var(--verde)}
 table.card thead th{background:var(--verde);color:var(--tarjeta);font-weight:700;font-size:13px;border-color:var(--verde-linea)}
 table.card thead th.nom{background:var(--verde);color:var(--tarjeta)}
 table.card tr.par td{background:#EAE3D2;font-size:13px;color:var(--tinta-suave)}
@@ -176,8 +180,9 @@ td.alto{color:var(--tinta-suave)}
 input[type=text],input[type=number],select{width:100%;padding:11px 12px;border-radius:8px;
   border:1px solid var(--verde-linea);background:var(--verde);color:var(--tarjeta);font-size:17px}
 input:focus,select:focus{outline:2px solid var(--laton);outline-offset:1px}
-.fila-jug{display:grid;grid-template-columns:1fr 76px;gap:6px;margin-bottom:6px}
+.fila-jug{display:grid;grid-template-columns:1fr 102px 60px;gap:6px;margin-bottom:6px}
 .fila-jug input{padding:9px 10px;font-size:17px}
+.fila-jug input.corto{font-size:15px;padding-left:8px;padding-right:8px}
 .segm{display:flex;gap:5px;background:var(--verde);border-radius:9px;padding:4px;margin-bottom:11px}
 .segm button{flex:1;padding:9px 6px;border-radius:6px;font-size:15.5px;font-weight:600;color:var(--cal)}
 .segm button.on{background:var(--tarjeta);color:var(--verde-hondo)}
@@ -438,7 +443,7 @@ try{
    ============================================================ */
 const DIAS = 2, HOYOS = 18, NJUG = 3;
 const VERSION = 10;   // sube al cambiar datos base: dispara migrar()
-const ACTUALIZADA='v10 · 12 sep 2026 · 19:28';   // lo sella el script de despliegue en cada publicación
+const ACTUALIZADA='v10 · 12 sep 2026 · 21:00';   // lo sella el script de despliegue en cada publicación
 
 /* --- Los 3 jugadores --- */
 /* Índices de handicap del torneo (ajuste vs promedio del grupo tras 2 rondas,
@@ -498,7 +503,7 @@ function estadoInicial(){
     sync:{ url:SYNC_URL_EMBEBIDA, token:SYNC_TOKEN_EMBEBIDO, sala:SYNC_SALA,
            activo:!!SYNC_URL_EMBEBIDA },
     pend:[], ct:{},
-    jugadores: JUGADORES.map((n,i)=>({ id:'j'+i, nombre:n, indice:INDICES_2026['j'+i]??15 })),
+    jugadores: JUGADORES.map((n,i)=>({ id:'j'+i, nombre:n, indice:INDICES_2026['j'+i]??15, corto:'' })),
     campos: CAMPOS.map(c=>({...c, par:[...c.par], si:[...c.si]})),
     grupos:null, scores:{},
     diaActivo:0, grupoActivo:0, hoyoActivo:0, vista:'hoy'
@@ -519,6 +524,8 @@ function cargar(){
   if(S.sync.token===undefined) S.sync.token='';
   if(SYNC_TOKEN_EMBEBIDO && !S.sync.token) S.sync.token=SYNC_TOKEN_EMBEBIDO;
   if(!S.pend) S.pend=[]; if(!S.ct) S.ct={}; if(!S.extras) S.extras={};
+  /* nombre corto editable; vacio = el automatico de corto() */
+  S.jugadores.forEach(j=>{ if(j.corto===undefined) j.corto=''; });
   if(SYNC_URL_EMBEBIDA && !S.sync.url){ S.sync.url=SYNC_URL_EMBEBIDA; S.sync.activo=true; }
   if(!S.grupos) S.grupos=gruposFijando(S.torneo.esquema);
   sembrar();
@@ -543,7 +550,9 @@ function cargar(){
 /* Actualiza una app ya instalada sin perder los golpes capturados */
 function migrar(){
   S.torneo.nombre = "Santa Fe 2026";
-  S.jugadores = JUGADORES.map((n,i)=>({ id:'j'+i, nombre:n, indice:INDICES_2026['j'+i]??15 }));
+  /* nombre e indice oficiales se refrescan; el corto escrito a mano se conserva */
+  S.jugadores = JUGADORES.map((n,i)=>{ const v=(S.jugadores||[]).find(j=>j.id==='j'+i);
+    return { id:'j'+i, nombre:n, indice:INDICES_2026['j'+i]??15, corto:(v&&v.corto)||'' }; });
   if(S.yo && !S.jugadores.find(j=>j.id===S.yo)) delete S.yo;
   S.grupos = gruposFijando(S.torneo.esquema);
   // Los campos son datos de referencia: se refrescan siempre, los golpes no se tocan
@@ -676,7 +685,7 @@ function pintarPortadaNombre(){
       g.forEach(r=>{ if(r!==S.yo) c[r]=(c[r]||0)+1; });
     }
     pv2.textContent=S.jugadores.filter(j=>j.id!==S.yo)
-      .map(j=>corto(j.nombre).split(' ')[0]+' '+(c[j.id]||0)).join(' · ');
+      .map(j=>nom1(j)+' '+(c[j.id]||0)).join(' · ');
   }
   const pv=document.getElementById('p-version');
   if(pv) pv.textContent=ACTUALIZADA;
@@ -913,7 +922,7 @@ function seccionParejas(d){
   const cfg=cfgParejas(d);
   const g=(S.grupos[d]||[]).find(z=>z.includes(YO()))||S.grupos[d][0];
   const sg2=x=>x>0?'+'+x:(x<0?''+x:'0');
-  const nom2=par=>par.map(j2=>corto(jug(j2).nombre).split(' ')[0]).join(' y ');
+  const nom2=par=>par.map(j2=>nom1(j2)).join(' y ');
   const sel=particiones(g).map((p2,i)=>
     `<button class="${(cfg.sel|0)===i?'on':''}" onclick="setParejaSel(${i})">${esc(nom2(p2[0]))} vs ${esc(nom2(p2[1]))}</button>`).join('');
   const miLado=m.pa.includes(YO())?1:-1;
@@ -940,7 +949,7 @@ function seccionParejas(d){
       </span></div>
     ${!m.quien ? '' : `<div class="cuenta"><span>Los golpes los recibe</span>
       <span class="segm" style="margin:0;padding:3px;gap:3px;width:auto">${(m.pa.includes(m.quien)?m.pa:m.pb).map(j2=>
-        `<button class="${m.quien===j2?'on':''}" style="padding:6px 11px;font-size:14.5px" onclick="setQuienParejas('${j2}')">${esc(corto(jug(j2).nombre).split(' ')[0])}</button>`).join('')}</span></div>`}
+        `<button class="${m.quien===j2?'on':''}" style="padding:6px 11px;font-size:14.5px" onclick="setQuienParejas('${j2}')">${esc(nom1(j2))}</button>`).join('')}</span></div>`}
     ${filas}
     <div class="cuenta"><span>Ida ${sg2(m.porNueve[0]*miLado)} × ${VALOR_IDA} · Vuelta ${sg2(m.porNueve[1]*miLado)} × ${VALOR_VUELTA} · Match ${bono===0?'—':sg2(bono*miLado)}</span>
       <span class="${dinero>0?'arr':(dinero<0?'aba':'')}">${dinero===0?'—':sg2(dinero)}</span></div>
@@ -983,6 +992,14 @@ const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 /* nombre corto para la tarjeta: respeta nombres compuestos (Juan Carlos Zepeda -> Juan Carlos) */
 const corto=n=>{const p=String(n??'').trim().split(/\s+/);return p.length>=3?p[0]+' '+p[1]:p[0];};
+/* El corto que las vistas REALMENTE usan: manda el que se escribio en Ajustes
+   y, si esta vacio, el automatico de arriba. Acepta el id ('j2') o el objeto. */
+const jugDe=x=>typeof x==='string'?jug(x):x;
+const nom=x=>{const j=jugDe(x);return (j&&String(j.corto||'').trim())||corto(j?j.nombre:'');};
+/* Para los lugares muy apretados que se quedaban con la primera palabra: un corto
+   escrito a mano ya venia elegido para caber, asi que ese se respeta tal cual. */
+const nom1=x=>{const j=jugDe(x);const c=j&&String(j.corto||'').trim();
+  return c||corto(j?j.nombre:'').split(' ')[0];};
 /* Punto rojo en la esquina de la celda: los golpes que ese jugador recibe
    en ese hoyo segun su indice y el indice de dificultad del hoyo. */
 const marcaVentaja=gp=>gp>0?`<i class="tri t${Math.min(gp,3)}" title="${gp} golpe${gp>1?'s':''} de ventaja"></i>`:'';
@@ -1026,9 +1043,8 @@ function vistaHoy(){
     const xtras=`<div class="xtras">${MUESTRA_DINERO?chips:''}${penales}</div>`;
     html+=`<div class="jug-fila">${marcaVentaja(gp)}
       <div class="jug-id">
-        <div class="jug-nom">${esc(j.nombre)}${gp>0?' <span class="gp-pts">'+'•'.repeat(Math.min(gp,3))+'</span>':''}</div>
+        <div class="jug-nom">${esc(nom(j))}${gp>0?' <span class="gp-pts">'+'•'.repeat(Math.min(gp,3))+'</span>':''}</div>
         <div class="jug-sub">HCP ${ch}${g!==null?' · neto '+neto:''}</div>
-        ${xtras}
       </div>
       <div class="golpe">
         ${editable?`<button class="bt" onclick="cambiaGolpe('${jid}',-1)">−</button>`:''}
@@ -1038,6 +1054,7 @@ function vistaHoy(){
         ${editable?`<button class="bt" onclick="cambiaGolpe('${jid}',1)">+</button>`:''}
       </div>
       <div class="pts">${pts===null?'':(esStableford()?pts+'p':(neto-c.par[h]>0?'+':'')+(neto-c.par[h]))}</div>
+      ${xtras}
     </div>`;
   });
 
@@ -1053,14 +1070,14 @@ function vistaHoy(){
       const marc=vivas.length
         ? vivas.map(a=>`<i class="${a.st>0?'arr':(a.st<0?'aba':'')}">${sg(a.st)}</i>`).join('')
         : '<i>—</i>';
-      filasPH+=`<div class="ph-fila"><span class="ph-nom">${esc(corto(jug(rid).nombre))}</span>
+      filasPH+=`<div class="ph-fila"><span class="ph-nom">${esc(nom(rid))}</span>
         <span class="ph-m">${marc}</span></div>`;
     });
     /* cómo va el grupo en el juego de parejas, en el nueve que se juega */
     let bloqueParejas='';
     const mp=matchParejas(d,h);
     if(mp){
-      const nom2=par=>par.map(j2=>corto(jug(j2).nombre).split(' ')[0]).join(' y ');
+      const nom2=par=>par.map(j2=>nom1(j2)).join(' y ');
       const lado=mp.pa.includes(MI)?1:-1;
       const mios=lado>0?mp.pa:mp.pb, suyos=lado>0?mp.pb:mp.pa;
       const vivas=mp.apuestas.filter(a2=>a2.fin===nueveFin && a2.ini<=h);
@@ -1080,7 +1097,7 @@ function vistaHoy(){
     grupo.forEach(jid=>{
       const j2=jug(jid), ch2=hcpCampo(j2,c), g2=scoreDe(d,jid,h);
       const p2=g2===null?null:puntosStableford(g2-golpesEnHoyo(ch2,c.si[h]),c.par[h]);
-      filasSt+=`<div class="ph-fila"><span class="ph-nom">${esc(corto(j2.nombre))}</span>
+      filasSt+=`<div class="ph-fila"><span class="ph-nom">${esc(nom(j2))}</span>
         <span class="ph-m"><i class="${p2>=3?'arr':(p2===0?'aba':'')}">${p2===null?'—':p2}</i></span>
         <span class="ph-d">${resumenRonda(d,jid).pts}</span></div>`;
     });
@@ -1091,7 +1108,7 @@ function vistaHoy(){
       ?`Toca el guion para anotar el par, ajusta con − y +,
     y toca el número para borrar el hoyo.${MUESTRA_DINERO?` La basura a $1: 🏖️ sandy (par desde la arena)
     y 🎯 oyes (en los pares 3, toca en orden de cercanía al hoyo: cobra el 1º).`:''}`
-      :`Día jugado y cerrado: solo consulta. Cualquier corrección la captura ${esc(corto(jug(EDITOR_CIERRE).nombre))} en su teléfono y les baja a todos por la sincronización.`}</p>`;
+      :`Día jugado y cerrado: solo consulta. Cualquier corrección la captura ${esc(nom(EDITOR_CIERRE))} en su teléfono y les baja a todos por la sincronización.`}</p>`;
   if(art&&artRO) html+=`<p class="nota-txt">Estás viendo el torneo en vivo. Lo que captures aquí se queda solo en este teléfono.</p>`;
   $('v-hoy').innerHTML=html;
 }
@@ -1128,8 +1145,8 @@ function vistaTarjeta(){
     const j=jug(jid); const ch=hcpCampo(j,c); let so=0,si_=0;
     /* ch invisible: iguala el ancho de la columna de nombres entre las dos
        cuadrículas, para que los hoyos queden alineados al moverse juntas */
-    let f=`<td class="nom">${esc(corto(j.nombre))}<span class="ch" style="visibility:hidden">${ch}</span></td>`;
-    let fq=`<td class="nom">${esc(corto(j.nombre))}<span class="ch">${ch}</span></td>`, po=0, pi=0;
+    let f=`<td class="nom">${esc(nom(j))}<span class="ch" style="visibility:hidden">${ch}</span></td>`;
+    let fq=`<td class="nom">${esc(nom(j))}<span class="ch">${ch}</span></td>`, po=0, pi=0;
     for(let h=0;h<9;h++){ const g=scoreDe(d,jid,h); if(g!==null) so+=g;
       const xm=extraDe(d,jid,h), gv=marcaVentaja(golpesEnHoyo(ch,c.si[h]));
       f+=`<td class="${g===null?'':(g<c.par[h]?'bajo':(g>c.par[h]?'alto':''))}">${gv}${g??'·'}${(xm&1)&&g!==null&&g<=c.par[h]?'<sup class="xmk">S</sup>':''}${(()=>{const oo=ordenOyes(d,jid,h);return oo?'<sup class="xmk'+(oo>1?' seg':'')+'">O'+'¹²³⁴⁵⁶⁷'[oo-1]+'</sup>':'';})()}</td>`;
@@ -1503,7 +1520,7 @@ function seccionFoursome(d,mi){
       /* día sin capturar: un guion limpio en vez de ceros que no dicen nada */
       const vivo=din!==null;
       return `<div class="ph-fila" style="flex-wrap:wrap">
-        <span class="ph-nom">${esc(corto(jug(rid).nombre))}</span>
+        <span class="ph-nom">${esc(nom(rid))}</span>
         <span class="ph-m">${vivo?marc(m.apuestas.filter(a=>a.fin===8)):'<i>—</i>'}</span>
         <span class="ph-sep"></span>
         <span class="ph-m vta">${vivo?marc(m.apuestas.filter(a=>a.fin===17)):''}</span>
@@ -1577,14 +1594,14 @@ function vistaPresiones(){
   const uMi=unidadesRonda(d,mi), uRiv=unidadesRonda(d,presRival);
   const dU=(uMi.total-uRiv.total)*VALOR_UNIDAD;
   const dineroTotal = dinero + dU;
-  const nomR=corto(jug(presRival).nombre);
-  const segm=rivales.map(id=>`<button class="${presRival===id?'on':''}" onclick="setRival('${id}')">${esc(corto(jug(id).nombre))}</button>`).join('');
+  const nomR=nom(presRival);
+  const segm=rivales.map(id=>`<button class="${presRival===id?'on':''}" onclick="setRival('${id}')">${esc(nom(id))}</button>`).join('');
   const veredicto = dineroTotal===0 ? 'Tablas con '+esc(nomR)
     : (dineroTotal>0 ? 'Te debe '+dineroTotal+' '+esc(nomR) : 'Le debes '+Math.abs(dineroTotal)+' a '+esc(nomR));
   /* al abrir: tus rivales del día y la ventaja con cada uno; − y + pactan lo del día */
   const resumen=`<div class="grupo"><h3>Hoy juegas con <span>${esc(c.fecha)}</span></h3>
     ${rivales.map(rid=>{ const v=slidingDe(d,mi,rid);
-      return `<div class="cuenta"><span>${esc(corto(jug(rid).nombre))}<br><i style="font-style:normal;font-family:var(--mono);font-size:11px;color:var(--tinta-suave)">${esc(motivoSliding(d,mi,rid))}</i></span>
+      return `<div class="cuenta"><span>${esc(nom(rid))}<br><i style="font-style:normal;font-family:var(--mono);font-size:11px;color:var(--tinta-suave)">${esc(motivoSliding(d,mi,rid))}</i></span>
         <span style="display:inline-flex;align-items:center;gap:7px">
           <button class="bt" style="width:30px;height:30px;font-size:19px" onclick="ajustaVentaja(${d},'${rid}',-1)">−</button>
           <span class="${v<0?'arr':(v>0?'aba':'')}" style="min-width:64px;text-align:center">${v<0?'te da '+(-v):(v>0?'le das '+v:'parejos')}</span>
@@ -1626,7 +1643,7 @@ function vistaPresiones(){
       let acum=0;
       const dias=S.campos.map((c2,i)=>{
         const g=(S.grupos[i]||[]).find(x=>x.includes(mi));
-        const rivs=g?g.filter(r=>r!==mi).map(r=>corto(jug(r).nombre)).join(', '):'';
+        const rivs=g?g.filter(r=>r!==mi).map(r=>nom(r)).join(', '):'';
         const v=q.porDia[i];
         if(v===null||v===undefined){
           return `<div class="cuenta"><span>${esc(c2.fecha)} · ${esc(c2.nombre)}<br>
@@ -1640,7 +1657,7 @@ function vistaPresiones(){
           style="color:var(--tinta-suave);font-weight:400;font-size:12px"> · van ${sg(acum)}</span></span></div>`;
       }).join('');
       const riv=Object.entries(q.porRival).sort((a,b)=>a[1]-b[1])
-        .map(([rid,v])=>`<div class="cuenta"><span>${esc(corto(jug(rid).nombre))}</span><span class="${v>0?'arr':(v<0?'aba':'')}">${sg(v)}</span></div>`).join('');
+        .map(([rid,v])=>`<div class="cuenta"><span>${esc(nom(rid))}</span><span class="${v>0?'arr':(v<0?'aba':'')}">${sg(v)}</span></div>`).join('');
       return `<div class="grupo" style="margin-top:10px"><h3>Cuenta del torneo <span>presiones</span></h3>
         ${dias}
         <div class="cuenta total"><span>${q.gran<0?'Vas pagando':(q.gran>0?'Vas cobrando':'Vas a mano')}</span>
@@ -1698,7 +1715,7 @@ function seccionSliding(){
     const g=(S.grupos[d]||[]).find(x=>x.includes(mi)); if(!g) continue;
     const riv=g.filter(id=>id!==mi);
     const txt=riv.map(rid=>{ const v=slidingLista(mi,rid);
-      return corto(jug(rid).nombre)+' '+(v===null?'?':(v>0?'+'+v:v)); }).join(' · ');
+      return nom(rid)+' '+(v===null?'?':(v>0?'+'+v:v)); }).join(' · ');
     aplicar+=`<div class="ls-dia"><div><b>${esc(S.campos[d].fecha)}</b><br><span>${esc(txt)}</span></div>
       <button class="btn sec" onclick="aplicaListaAlDia(${d})">Aplicar</button></div>`;
   }
@@ -1785,22 +1802,26 @@ function vistaAjustes(){
   if(YO()==='j0'){
     html+=`<h2 class="sec">Jugadores</h2>
     <div class="fila-jug" style="font-family:var(--mono);font-size:12px;color:var(--cal);text-transform:uppercase;letter-spacing:.1em">
-      <div>Nombre</div><div>Índice</div></div>`;
+      <div>Nombre</div><div>Corto</div><div>Índice</div></div>`;
     const listaJug=S.jugadores.map((j,i)=>({j,i})).sort((x,y)=>(x.j.id==='j0')-(y.j.id==='j0'));
     listaJug.forEach(({j,i})=>{
       html+=`<div class="fila-jug">
         <input type="text" value="${esc(j.nombre)}" onchange="setJug(${i},'nombre',this.value)">
+        <input type="text" class="corto" value="${esc(j.corto||'')}" placeholder="${esc(corto(j.nombre))}"
+          onchange="setJug(${i},'corto',this.value)" autocapitalize="words" spellcheck="false">
         <input type="number" step="0.1" value="${esc(j.indice)}" onchange="setJug(${i},'indice',this.value)">
       </div>`;
     });
-    html+=`<p class="nota-txt">Con estos índices se calculan el neto y los puntos stableford de todos.</p>`;
+    html+=`<p class="nota-txt">Con estos índices se calculan el neto y los puntos stableford de todos.
+      El <b>corto</b> es el nombre que sale en Hoy y en la Tarjeta. Déjalo vacío y se calcula solo
+      (es el gris que ves de fondo); escríbelo más chico y caben más hoyos por pantalla.</p>`;
   }else{
     /* los demás teléfonos ven el índice con el que corre su stableford */
     html+=`<h2 class="sec">Índices del torneo</h2><div class="grupo">
       ${S.jugadores.map(j=>`<div class="cuenta"><span>${esc(j.nombre)}</span><span>${esc(j.indice)}</span></div>`).join('')}
     </div>
     <p class="nota-txt">Con ese índice se calculan el neto y los puntos stableford de cada quien.
-    Los edita el teléfono de ${esc(corto(jug('j0')?jug('j0').nombre:'j0'))}.</p>`;
+    Los edita el teléfono de ${esc((jug('j0')?nom('j0'):'j0'))}.</p>`;
   }
   html+=`<h2 class="sec">Campos</h2>`;
   S.campos.forEach((c,d)=>{
@@ -1888,7 +1909,7 @@ function gridHoyos(d,k){
   for(let h=9;h<18;h++) b+=`<input type="number" value="${S.campos[d][k][h]}" onchange="setHoyo(${d},'${k}',${h},this.value)">`;
   return a+'</div>'+b+'</div>';
 }
-function setJug(i,k,v){ S.jugadores[i][k]=k==='indice'?parseFloat(v)||0:v; S.tj=Date.now(); artProgramar(); guardar(); render(); }
+function setJug(i,k,v){ S.jugadores[i][k]=k==='indice'?parseFloat(v)||0:String(v).trim(); S.tj=Date.now(); artProgramar(); guardar(); render(); }
 function setCampo(d,k,v){ S.campos[d][k]=(k==='nombre')?v:parseFloat(v)||0; guardar(); render(); }
 function setHoyo(d,k,h,v){ S.campos[d][k][h]=parseInt(v)||0; guardar(); render(); }
 function setIA(k,v){ S.ia[k]=v.trim(); guardar(); render(); }
@@ -1986,7 +2007,7 @@ function vistaFoto(){
   grupo.forEach(jid=>{
     const j=jug(jid), v=borrador[jid]||Array(HOYOS).fill(null);
     const so=v.slice(0,9).reduce((a,b)=>a+(b||0),0), si_=v.slice(9).reduce((a,b)=>a+(b||0),0);
-    let f=`<td class="nom">${esc(corto(j.nombre))}</td>`;
+    let f=`<td class="nom">${esc(nom(j))}</td>`;
     for(let h=0;h<9;h++) f+=celdaInput(jid,h,v[h]);
     f+=`<td class="tot">${so||'·'}</td>`;
     for(let h=9;h<18;h++) f+=celdaInput(jid,h,v[h]);
@@ -2277,7 +2298,9 @@ function aplicarEstadoPub(pub){
   });
   if(pub.grupos&&pub.tg&&pub.tg>(S.tg||0)){ S.grupos=pub.grupos; S.tg=pub.tg; cambios++; }
   if(pub.jugadores&&pub.tj&&pub.tj>(S.tj||0)){
-    pub.jugadores.forEach(pj=>{ const j=jug(pj.id); if(j){ j.nombre=pj.nombre; j.indice=pj.indice; } });
+    pub.jugadores.forEach(pj=>{ const j=jug(pj.id); if(j){ j.nombre=pj.nombre; j.indice=pj.indice;
+      /* un telefono con la version vieja publica sin corto: que no lo borre */
+      if(pj.corto!==undefined) j.corto=pj.corto; } });
     S.tj=pub.tj; cambios++;
   }
   if(cambios) guardar();
@@ -2300,7 +2323,7 @@ function estadoPubNuevo(){
   });
   return { v:1, t:Date.now(), ct:{...S.ct},
     grupos:S.grupos, tg:S.tg||SEMILLA_TS,
-    jugadores:S.jugadores.map(j=>({id:j.id,nombre:j.nombre,indice:j.indice})), tj:S.tj||SEMILLA_TS,
+    jugadores:S.jugadores.map(j=>({id:j.id,nombre:j.nombre,indice:j.indice,corto:j.corto||''})), tj:S.tj||SEMILLA_TS,
     extras:{...(S.extras||{})}, scores };
 }
 function artProgramar(ms){
